@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'task-app'
-include('app')
+include('app', 'frontend')

@@ -19,6 +19,24 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation project(':frontend')
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.register('copyFrontendToSpringBoot', Copy) {
+    from("$projectDir/../frontend/build")
+    into("$projectDir/src/main/resources/static")
+
+    println "$projectDir/../frontend/build"
+    println "$projectDir/src/main/resources/static"
+
+    dependsOn ':frontend:buildFrontend'
+    dependsOn 'processResources'
+}
+
+bootJar {
+    dependsOn copyFrontendToSpringBoot
 }

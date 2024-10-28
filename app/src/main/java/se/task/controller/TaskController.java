@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RestController("/api/v1/tasks")
+@RestController
+@RequestMapping("/api/v1/tasks")
 public class TaskController {
 
     private final TaskService taskService;
