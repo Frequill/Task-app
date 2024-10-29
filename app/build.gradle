@@ -30,11 +30,12 @@ tasks.register('copyFrontendToSpringBoot', Copy) {
     from("$projectDir/../frontend/build")
     into("$projectDir/src/main/resources/static")
 
-    println "$projectDir/../frontend/build"
-    println "$projectDir/src/main/resources/static"
-
     dependsOn ':frontend:buildFrontend'
     dependsOn 'processResources'
+}
+
+bootRun {
+    dependsOn copyFrontendToSpringBoot
 }
 
 bootJar {
