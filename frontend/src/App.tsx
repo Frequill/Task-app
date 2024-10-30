@@ -1,6 +1,6 @@
 import './App.css';
 import { Task } from './models/task';
-import { Tasks } from './page/tasks';
+import { Tasks } from './pages/tasks/tasks';
 
 const tasks: Task[] = [
   {

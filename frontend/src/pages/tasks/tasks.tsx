@@ -1,4 +1,5 @@
-import { Task } from "../models/task";
+import { Task } from "../../models/task";
+import "./tasks.scss"
 
 export const Tasks = ({title, tasks}: {title: string, tasks: Task[]}) => {
     return (
@@ -7,7 +8,7 @@ export const Tasks = ({title, tasks}: {title: string, tasks: Task[]}) => {
             
             {tasks.map(task => {
                 return (
-                   <div style={{margin: '10px 0 0 0'}}>
+                   <div className="task-container">
                         <div>{task.title}</div>
                         <div>{task.description}</div>
                    </div>
