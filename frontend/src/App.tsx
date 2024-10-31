@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { Task } from './models/task';
 import { Tasks } from './pages/tasks/tasks';
 
