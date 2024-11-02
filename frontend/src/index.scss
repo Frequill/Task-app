@@ -1,6 +1,18 @@
 @import '../node_modules/bootstrap';
 @import '../node_modules/material-icons';
 
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -1,6 +1,8 @@
 import './App.scss';
 import { Task } from './models/task';
+import { TaskCreator } from './pages/task-creator/task-creator';
 import { Tasks } from './pages/tasks/tasks';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const tasks: Task[] = [
   {
@@ -19,9 +21,12 @@ const tasks: Task[] = [
 
 function App() {
   return (
-    <div className="App">
-      <Tasks title='Tasks' tasks={tasks}/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Tasks title='Tasks' tasks={tasks}/>} />
+        <Route path="/task-creator" element={<TaskCreator/>} />
+      </Routes>
+    </Router>
   );
 }
 

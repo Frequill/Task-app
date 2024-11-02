@@ -7,13 +7,22 @@
 
 .task-container {
     margin: 10px 0 0 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+}
+
+.icon-delete:before {
+    color: gray;
+    background-color: lightgray;
+    border-radius: .4rem;
+    padding: .2rem;
+    content: 'delete';
+    font-size: 1.5rem;
 }
 
 .icon-edit:before {
-    color: green;
-    content: 'edit'
+    color: gray;
+    background-color: lightgray;
+    border-radius: .4rem;
+    padding: .2rem;
+    content: 'edit';
+    font-size: 1.5rem;
 }
