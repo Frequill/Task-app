@@ -22,6 +22,7 @@ const tasks: Task[] = [
 function App() {
   return (
     <Router>
+      <h1 className="d-flex justify-content-center">Task app</h1>
       <Routes>
         <Route path="/" element={<Tasks title='Tasks' tasks={tasks}/>} />
         <Route path="/task-creator" element={<TaskCreator/>} />

@@ -1,3 +1,7 @@
+export enum TaskPriority {
+    LOW, MEDIUM, HIGH
+}
+
 export class Task {
     constructor(
         public title: string,
