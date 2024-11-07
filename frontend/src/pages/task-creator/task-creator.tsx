@@ -2,6 +2,8 @@ import './task-creator.scss';
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import {TaskPriority} from "../../models/task";
+import {useApi} from "../../hooks/useApi";
+import {TaskApi} from "../../api/taskApi";
 
 export const TaskCreator = () => {
 
@@ -9,12 +11,23 @@ export const TaskCreator = () => {
         title: '',
         description: '',
         category: '',
-        date: '',
+        dueDate: '',
         priority: 0
     });
 
+    const taskApi = new TaskApi();
+
+    const [data, addItems ] = useApi();
+
     let addItem = () => {
-        console.log(formData);
+        taskApi.addItem({
+            title: formData.title,
+            description: formData.description,
+            category: formData.category,
+            dueDate: new Date(formData.dueDate),
+            priority: formData.priority
+        }).then();
+        console.debug(formData);
     }
 
     return (
@@ -53,8 +66,8 @@ export const TaskCreator = () => {
 
                             <div className="form-group">
                                 <label>Date</label>
-                                <input id="startDate" className="form-control" type="date"
-                                       onChange={e => setFormData({...formData, date: e.target.value})}/>
+                                <input id="dueDate" className="form-control" type="date"
+                                       onChange={e => setFormData({...formData, dueDate: e.target.value})}/>
                             </div>
 
                             <div className="form-group">

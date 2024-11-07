@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import se.task.enums.Priority;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -17,6 +17,6 @@ public class Task {
     private String title;
     private String description;
     private String category;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
     private Priority priority;
 }

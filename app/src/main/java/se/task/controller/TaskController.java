@@ -37,7 +37,7 @@ public class TaskController {
         return taskService.editTask(UUID.fromString(id), editTaskDto);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public void deleteTask(@PathVariable String id) {
         taskService.deleteTask(UUID.fromString(id));
     }

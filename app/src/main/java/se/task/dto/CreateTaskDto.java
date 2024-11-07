@@ -2,8 +2,7 @@ package se.task.dto;
 
 import se.task.enums.Priority;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.LocalDate;
 
-public record CreateTaskDto(UUID uid, String title, String description, String category, LocalDateTime dueDate, Priority priority) {
+public record CreateTaskDto(String title, String description, String category, LocalDate dueDate, Priority priority) {
 }

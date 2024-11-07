@@ -16,7 +16,7 @@ public class IndexController {
     @Value("classpath:/static/index.html")
     private Resource appIndex;
 
-    @GetMapping("/")
+    @GetMapping({"/", "/task-creator"})
     ResponseEntity<String> index() throws IOException {
         return ResponseEntity.ok(appIndex.getContentAsString(StandardCharsets.UTF_8));
     }

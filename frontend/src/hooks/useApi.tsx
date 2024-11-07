@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
+import {Task} from "../models/task";
 
-const URL = '';
+const URL = 'http://localhost:8080/api/v1/tasks';
 
 export const useApi = () => {
 
-    const [data, setData] = useState();
+    const [data, setData] = useState<Task[]>([]);
 
     useEffect(() => {
         fetch(URL)
@@ -12,10 +13,10 @@ export const useApi = () => {
                 if (!res.ok) {
                     throw Error('Something went wrong with the request.');
                 }
-                return res.json()
+                return res.json() || []
             })
             .then(res => setData(res))
     });
 
-    return { data }
+    return [ data ]
 }

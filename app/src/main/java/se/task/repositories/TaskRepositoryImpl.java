@@ -3,6 +3,7 @@ package se.task.repositories;
 import org.springframework.stereotype.Repository;
 import se.task.models.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Repository
 public class TaskRepositoryImpl implements TaskRepository {
 
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public void createTask(Task task) {
