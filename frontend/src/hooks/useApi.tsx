@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Task} from "../models/task";
 
-const URL = 'http://localhost:8080/api/v1/tasks';
+const URL = '/api/v1/tasks';
 
 export const useApi = () => {
 
