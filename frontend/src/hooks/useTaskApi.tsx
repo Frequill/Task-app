@@ -3,9 +3,9 @@ import {Task} from "../models/task";
 
 const URL = '/api/v1/tasks';
 
-export const useApi = () => {
+export const useTaskApi = (): [Task[], ((task: Task) => Promise<Response>)] => {
 
-    const [data, setData] = useState<Task[]>([]);
+    const [data, setData]: [Task[], any] = useState<Task[]>([]);
 
     useEffect(() => {
         fetch(URL)
@@ -18,5 +18,13 @@ export const useApi = () => {
             .then(res => setData(res))
     });
 
-    return [ data ]
+    const addTask = (task: Task) => {
+        return fetch('/api/v1/tasks', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(task)
+        });
+    }
+
+    return [ data, addTask ]
 }

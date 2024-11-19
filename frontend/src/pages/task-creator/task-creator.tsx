@@ -1,11 +1,11 @@
 import './task-creator.scss';
 import {Link} from "react-router-dom";
 import {useState} from "react";
-import {TaskPriority} from "../../models/task";
-import {useApi} from "../../hooks/useApi";
-import {TaskApi} from "../../api/taskApi";
+import {Task, TaskPriority} from "../../models/task";
 
-export const TaskCreator = () => {
+type AddTaskFn = (task: Task) => Promise<Response>;
+
+export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
 
     const [formData, setFormData] = useState({
         title: '',
@@ -15,12 +15,8 @@ export const TaskCreator = () => {
         priority: 0
     });
 
-    const taskApi = new TaskApi();
-
-    const [data, addItems ] = useApi();
-
     let addItem = () => {
-        taskApi.addItem({
+        addTask({
             title: formData.title,
             description: formData.description,
             category: formData.category,

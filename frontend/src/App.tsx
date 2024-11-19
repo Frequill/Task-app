@@ -3,7 +3,7 @@ import { Task } from './models/task';
 import { TaskCreator } from './pages/task-creator/task-creator';
 import { Tasks } from './pages/tasks/tasks';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import {useApi} from "./hooks/useApi";
+import {useTaskApi} from "./hooks/useTaskApi";
 
 const tasks: Task[] = [
   {
@@ -24,14 +24,14 @@ const tasks: Task[] = [
 
 function App() {
 
-  const [ data ] = useApi();
+  const [ data, addTask ] = useTaskApi();
 
   return (
     <Router>
       <h1 className="d-flex justify-content-center">Task app</h1>
       <Routes>
         <Route path="/" element={<Tasks title='Tasks' tasks={data}/>} />
-        <Route path="/task-creator" element={<TaskCreator/>} />
+        <Route path="/task-creator" element={<TaskCreator addTask={addTask}/>} />
       </Routes>
     </Router>
   );
