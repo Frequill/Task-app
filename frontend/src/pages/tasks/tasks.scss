@@ -9,22 +9,34 @@
     margin: 10px 0 0 0;
 }
 
-.icon-delete:before {
-    color: gray;
+.icon-delete {
     background-color: lightgray;
+    cursor: pointer;
+    color: gray;
     border-radius: .4rem;
     padding: .2rem;
-    content: 'delete';
-    font-size: 1.5rem;
+    &:before {
+        content: 'delete';
+        font-size: 1.5rem;
+    }
+    &:hover {
+        background-color: #b4b4b4;
+    }
 }
 
-.icon-edit:before {
-    color: gray;
+.icon-edit {
     background-color: lightgray;
+    cursor: pointer;
+    color: gray;
     border-radius: .4rem;
     padding: .2rem;
-    content: 'edit';
-    font-size: 1.5rem;
+    &:before {
+        content: 'edit';
+        font-size: 1.5rem;
+    }
+    &:hover {
+        background-color: #b4b4b4;
+    }
 }
 
 input {

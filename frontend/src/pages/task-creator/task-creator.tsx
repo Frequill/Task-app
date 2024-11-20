@@ -1,11 +1,13 @@
 import './task-creator.scss';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Task, TaskPriority} from "../../models/task";
 
 type AddTaskFn = (task: Task) => Promise<Response>;
 
 export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         title: '',
@@ -22,7 +24,12 @@ export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
             category: formData.category,
             dueDate: new Date(formData.dueDate),
             priority: formData.priority
-        }).then();
+        }).then(res => {
+            if(!res.ok) {
+                throw Error('Could not add task.');
+            }
+            navigate('/');
+        });
         console.debug(formData);
     }
 
