@@ -26,13 +26,13 @@ const tasks: Task[] = [
 
 function App() {
 
-  const [ data, addTask, editTask ] = useTaskApi();
+  const [ data, addTask, editTask, removeTask ] = useTaskApi();
 
   return (
     <Router>
       <h1 className="d-flex justify-content-center">Task app</h1>
       <Routes>
-        <Route path="/" element={<Tasks title='Tasks' tasks={data}/>} />
+        <Route path="/" element={<Tasks title='Tasks' tasks={data} removeTask={removeTask}/>} />
         <Route path="/task-creator" element={<TaskCreator addTask={addTask} editTask={editTask}/>} />
       </Routes>
     </Router>

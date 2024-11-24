@@ -4,7 +4,7 @@ import {TaskCreate} from "../models/taskCreate";
 
 const URL = '/api/v1/tasks';
 
-export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>), ((task: Task) => Promise<Response>)] => {
+export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>), ((task: Task) => Promise<Response>), ((uid: string) => Promise<Response>)] => {
 
     const [data, setData]: [Task[], any] = useState<Task[]>([]);
 
@@ -25,7 +25,7 @@ export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>)
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(task)
         }).then(res => {
-            if(res.ok) {
+            if (res.ok) {
                 loadTasks();
             }
             return res;
@@ -34,12 +34,23 @@ export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>)
 
     const editTask = (task: Task) => {
         console.log(task)
-        return fetch('/api/v1/tasks/' + task.uid, {
+        return fetch(`/api/v1/tasks/${task.uid}`, {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(task)
         }).then(res => {
-            if(res.ok) {
+            if (res.ok) {
+                loadTasks();
+            }
+            return res;
+        });
+    }
+
+    const removeTask = (uid: string) => {
+        return fetch(`/api/v1/tasks/${uid}`, {
+            method: 'DELETE'
+        }).then(res => {
+            if (res.ok) {
                 loadTasks();
             }
             return res;
@@ -50,5 +61,5 @@ export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>)
         loadTasks();
     }, []);
 
-    return [ data, addTask, editTask ]
+    return [ data, addTask, editTask, removeTask ]
 }

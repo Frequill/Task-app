@@ -3,6 +3,7 @@ package se.task.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import se.task.enums.Category;
 import se.task.enums.Priority;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class Task {
     private UUID uid;
     private String title;
     private String description;
-    private String category;
+    private Category category;
     private LocalDate dueDate;
     private Priority priority;
 }

@@ -1,7 +1,7 @@
 import './task-creator.scss';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Task, TaskPriority} from "../../models/task";
+import {Category, Task, TaskPriority} from "../../models/task";
 import {TaskCreate} from "../../models/taskCreate";
 
 type AddTaskFn = (task: TaskCreate) => Promise<Response>;
@@ -9,11 +9,20 @@ type EditTaskFn = (task: Task) => Promise<Response>;
 
 export const TaskCreator = ({addTask, editTask}: {addTask: AddTaskFn, editTask: EditTaskFn}) => {
 
+    const categoryMap: Map<number, String> = new Map<number, String>([
+        [Category.HOUSEHOLD, "Household"],
+        [Category.HEALTH, "Health"],
+        [Category.HOBBY, "Hobby"],
+        [Category.WORK, "Work"],
+        [Category.YARD, "Yard"],
+        [Category.PROBLEM_SOLVING, "Problem solving"],
+    ]);
+
     const navigate = useNavigate();
 
     const location = useLocation();
 
-    const state: 'create' | 'edit' = location.state ? 'edit' : 'create'
+    const state: 'create' | 'edit' = location.state ? 'edit' : 'create';
 
     const [formData, setFormData] = useState({
         title: '',
@@ -25,7 +34,7 @@ export const TaskCreator = ({addTask, editTask}: {addTask: AddTaskFn, editTask: 
 
     useEffect(() => {
         if (location.state) {
-            setFormData(location.state)
+            setFormData(location.state);
         }
     }, []);
 
@@ -62,9 +71,9 @@ export const TaskCreator = ({addTask, editTask}: {addTask: AddTaskFn, editTask: 
 
     let handlePrimaryClick = () => {
         if (state === 'create') {
-            addItem()
+            addItem();
         } else {
-            editItem()
+            editItem();
         }
     }
 
@@ -98,7 +107,11 @@ export const TaskCreator = ({addTask, editTask}: {addTask: AddTaskFn, editTask: 
                                 <label>Category</label>
                                 <select className="form-control" value={formData.category}
                                         onChange={e => setFormData({...formData, category: e.target.value})}>
-                                    <option></option>
+                                    {Array.from(categoryMap).map((value, key) => {
+                                        return (
+                                            <option value={value[0]}>{value[1]}</option>
+                                        );
+                                    })}
                                 </select>
                             </div>
 

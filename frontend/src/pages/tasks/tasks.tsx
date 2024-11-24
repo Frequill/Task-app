@@ -2,7 +2,8 @@ import {Task} from "../../models/task";
 import "./tasks.scss"
 import {Link} from "react-router-dom";
 
-export const Tasks = ({title, tasks}: { title: string, tasks: Task[] }) => {
+export const Tasks = ({title, tasks, removeTask}: { title: string, tasks: Task[], removeTask: ((uid: string) => Promise<Response>) }) => {
+
     return (
         <div className="container h-100 mt-5">
             <div className="row h-100">
@@ -23,7 +24,7 @@ export const Tasks = ({title, tasks}: { title: string, tasks: Task[] }) => {
                                 </div>
                                 <div className="description">{task.description}</div>
                                 <div className="d-flex gap-2">
-                                    <span className="icon icon-delete"></span>
+                                    <span className="icon icon-delete" onClick={() => removeTask(task.uid)}></span>
                                     <Link state={task} to="/task-creator">
                                         <span className="icon icon-edit"></span>
                                     </Link>
@@ -33,7 +34,7 @@ export const Tasks = ({title, tasks}: { title: string, tasks: Task[] }) => {
                     })}
                 </div>
                 <div className="col-2"></div>
-            </div> 
+            </div>
         </div>
     );
 }
