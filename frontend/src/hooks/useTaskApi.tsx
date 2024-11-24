@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {Task} from "../models/task";
+import {TaskCreate} from "../models/taskCreate";
 
 const URL = '/api/v1/tasks';
 
-export const useTaskApi = (): [Task[], ((task: Task) => Promise<Response>)] => {
+export const useTaskApi = (): [Task[], ((task: TaskCreate) => Promise<Response>), ((task: Task) => Promise<Response>)] => {
 
     const [data, setData]: [Task[], any] = useState<Task[]>([]);
 
@@ -18,9 +19,23 @@ export const useTaskApi = (): [Task[], ((task: Task) => Promise<Response>)] => {
             .then(res => setData(res));
     }
 
-    const addTask = (task: Task) => {
+    const addTask = (task: TaskCreate) => {
         return fetch('/api/v1/tasks', {
             method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(task)
+        }).then(res => {
+            if(res.ok) {
+                loadTasks();
+            }
+            return res;
+        });
+    }
+
+    const editTask = (task: Task) => {
+        console.log(task)
+        return fetch('/api/v1/tasks/' + task.uid, {
+            method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(task)
         }).then(res => {
@@ -35,5 +50,5 @@ export const useTaskApi = (): [Task[], ((task: Task) => Promise<Response>)] => {
         loadTasks();
     }, []);
 
-    return [ data, addTask ]
+    return [ data, addTask, editTask ]
 }

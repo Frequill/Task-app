@@ -7,6 +7,7 @@ import {useTaskApi} from "./hooks/useTaskApi";
 
 const tasks: Task[] = [
   {
+    uid: '1',
     title: 'Mow lawn',
     description: 'Grass is too tall, maximum height: 3,5mm.',
     category: 'House work',
@@ -14,6 +15,7 @@ const tasks: Task[] = [
     priority: 1
   },
   {
+    uid: '1',
     title: 'Do the dishes',
     description: 'All plates must be clean.',
     category: 'House work',
@@ -24,14 +26,14 @@ const tasks: Task[] = [
 
 function App() {
 
-  const [ data, addTask ] = useTaskApi();
+  const [ data, addTask, editTask ] = useTaskApi();
 
   return (
     <Router>
       <h1 className="d-flex justify-content-center">Task app</h1>
       <Routes>
         <Route path="/" element={<Tasks title='Tasks' tasks={data}/>} />
-        <Route path="/task-creator" element={<TaskCreator addTask={addTask}/>} />
+        <Route path="/task-creator" element={<TaskCreator addTask={addTask} editTask={editTask}/>} />
       </Routes>
     </Router>
   );

@@ -1,10 +1,7 @@
-export enum TaskPriority {
-    LOW, MEDIUM, HIGH
-}
+import {TaskPriority} from "./task";
 
-export class Task {
+export class TaskCreate {
     constructor(
-        public uid: string,
         public title: string,
         public description: string,
         public dueDate: Date,

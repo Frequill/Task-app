@@ -22,6 +22,8 @@ public class TaskService {
                 .uid(UUID.randomUUID())
                 .title(taskDto.title())
                 .description(taskDto.description())
+                .category(taskDto.category())
+                .dueDate(taskDto.dueDate())
                 .priority(taskDto.priority())
                 .build();
         repo.createTask(task);
@@ -40,6 +42,8 @@ public class TaskService {
                 .uid(id)
                 .title(editTaskDto.title())
                 .description(editTaskDto.description())
+                .category(editTaskDto.category())
+                .dueDate(editTaskDto.dueDate())
                 .priority(editTaskDto.priority())
                 .build();
         return repo.editTask(id, task).orElseThrow(() -> new TaskNotFoundException("No such task exists"));

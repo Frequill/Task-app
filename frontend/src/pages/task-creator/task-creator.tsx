@@ -1,21 +1,33 @@
 import './task-creator.scss';
-import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import {Task, TaskPriority} from "../../models/task";
+import {TaskCreate} from "../../models/taskCreate";
 
-type AddTaskFn = (task: Task) => Promise<Response>;
+type AddTaskFn = (task: TaskCreate) => Promise<Response>;
+type EditTaskFn = (task: Task) => Promise<Response>;
 
-export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
+export const TaskCreator = ({addTask, editTask}: {addTask: AddTaskFn, editTask: EditTaskFn}) => {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const state: 'create' | 'edit' = location.state ? 'edit' : 'create'
 
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         category: '',
         dueDate: '',
-        priority: 0
+        priority: TaskPriority.LOW
     });
+
+    useEffect(() => {
+        if (location.state) {
+            setFormData(location.state)
+        }
+    }, []);
 
     let addItem = () => {
         addTask({
@@ -30,7 +42,30 @@ export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
             }
             navigate('/');
         });
-        console.debug(formData);
+    }
+
+    let editItem = () => {
+        editTask({
+            uid: location.state.uid,
+            title: formData.title,
+            description: formData.description,
+            category: formData.category,
+            dueDate: new Date(formData.dueDate),
+            priority: formData.priority
+        }).then(res => {
+            if (!res.ok) {
+                throw Error('Could not edit the task.');
+            }
+            navigate('/');
+        });
+    }
+
+    let handlePrimaryClick = () => {
+        if (state === 'create') {
+            addItem()
+        } else {
+            editItem()
+        }
     }
 
     return (
@@ -47,21 +82,21 @@ export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
                         <form className="w-100">
                             <div className="form-group">
                                 <label>Title</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className="form-control" value={formData.title}
                                        onChange={e => setFormData({...formData, title: e.target.value})}></input>
                                 <small className="form-text text-muted">Title's are rad!</small>
                             </div>
 
                             <div className="form-group">
                                 <label>Description</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className="form-control" value={formData.description}
                                        onChange={e => setFormData({...formData, description: e.target.value})}></input>
                                 <small className="form-text text-muted">A description saves headaches</small>
                             </div>
 
                             <div className="form-group">
                                 <label>Category</label>
-                                <select className="form-control"
+                                <select className="form-control" value={formData.category}
                                         onChange={e => setFormData({...formData, category: e.target.value})}>
                                     <option></option>
                                 </select>
@@ -69,7 +104,7 @@ export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
 
                             <div className="form-group">
                                 <label>Date</label>
-                                <input id="dueDate" className="form-control" type="date"
+                                <input id="dueDate" className="form-control" type="date" value={formData.dueDate}
                                        onChange={e => setFormData({...formData, dueDate: e.target.value})}/>
                             </div>
 
@@ -84,7 +119,7 @@ export const TaskCreator = ({addTask}: {addTask: AddTaskFn}) => {
                                 </select>
                             </div>
                             <div className="d-flex justify-content-end mt-3">
-                                <button type="button" className="btn btn-success" onClick={addItem}>Lägg till</button>
+                                <button type="button" className="btn btn-success" onClick={handlePrimaryClick}>{state === 'create' ? 'Add task' : 'Save changes'}</button>
                             </div>
                         </form>
                     </div>

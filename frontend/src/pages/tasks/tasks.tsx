@@ -24,7 +24,9 @@ export const Tasks = ({title, tasks}: { title: string, tasks: Task[] }) => {
                                 <div className="description">{task.description}</div>
                                 <div className="d-flex gap-2">
                                     <span className="icon icon-delete"></span>
-                                    <span className="icon icon-edit"></span>
+                                    <Link state={task} to="/task-creator">
+                                        <span className="icon icon-edit"></span>
+                                    </Link>
                                 </div>
                             </div>
                         )
